@@ -4,10 +4,6 @@ app = FastAPI()
 
 
 @app.get("/items/{item_id}")
-async def read_item(item_id: str, q: str | None = None , short: bool = False):
+async def read_item(item_id: str, needy: str):      # hit api : http://127.0.0.1:8000/items/item-foo/?needy=somethingneedy
     items = {'item_id':item_id}
-    if q:
-        items.update({'q':q})
-    if not short:
-        items.update({'description':'This is an amzing des with logn'})
     return items

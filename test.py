@@ -1,9 +1,19 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+
+class Item(BaseModel):
+    name: str
+    description: str | None=None
+    price: float
+    tax: float | None=None
 
 app = FastAPI()
 
+@app.get("/items/")
+async def get_item():
+    return {'test':'okay'}
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: str, needy: str , item_o_id:int=10 , item_date:str | None=None):      # hit api :http://127.0.0.1:8000/items/item-foo/?needy=somethingneedy&item_o_id=20
-    items = {'item_id':item_id}
-    return items
+@app.post("/items/")
+async def create_item(item: Item):
+    return item
+
